@@ -104,6 +104,4 @@ class RegisterController extends Controller
             'token' => $user->api_token,
         ]);
     }
-
-
 }

@@ -1,0 +1,19 @@
+engines:
+  # ... CONFIG CONTENT ...
+  phan:
+    enabled: true
+    # ... CONFIG CONTENT ...
+    checks:
+      PhanUndeclaredTypeParameter:
+        enabled: false
+      PhanUndeclaredClassMethod:
+        enabled: false
+      PhanUndeclaredFunction:
+        enabled: false
+      PhanUndeclaredExtendedClass:
+        enabled: false
+      CleanCode/StaticAccess:
+        enabled: false
+      Naming/ShortMethodName:
+        enabled: false
+  # ... CONFIG CONTENT ...
