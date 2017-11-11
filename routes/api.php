@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['namespace' => 'Auth'], function() {
     Route::post('/login', 'LoginController@login');
+    Route::post('/register', 'RegisterController@register');
 });
