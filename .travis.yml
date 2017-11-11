@@ -6,4 +6,6 @@ php:
   - nightly
 before_script:
   - composer install
+  - cp .env.example .env
+  - echo "APP_ENV=test" >> .env
   - php artisan key:generate
