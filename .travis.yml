@@ -1,6 +1,3 @@
-env:
-  global:
-    - CC_TEST_REPORTER_ID=327363970807447261fcd691a1e3332a76691a3bcfb55d276d38d6b35b312993
 language: php
 php:
   - '7.1'
@@ -11,8 +8,5 @@ before_script:
   - cp .env.example .env
   - echo "APP_ENV=test" >> .env
   - php artisan key:generate
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
 after_script:
-  - ./cc-test-reporter after-build -t clover -p report/clover/ --exit-code $TRAVIS_TEST_RESULT
+  - php vendor/bin/codacycoverage clover report/clover/clover.xml
