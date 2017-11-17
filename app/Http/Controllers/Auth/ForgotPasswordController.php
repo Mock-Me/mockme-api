@@ -50,6 +50,7 @@ class ForgotPasswordController extends Controller
 
         $user = $this->getUser($request);
 
+
         if(is_null($user)) {
             $this->sendSignupMail($request->input('email'));
         } else {
@@ -57,7 +58,7 @@ class ForgotPasswordController extends Controller
         }
 
         return response()->json([
-            'message' => "If you're a registered user, an email has been sent to {$request->input('email')} with a password reset link."
+            'message' => "If you're a registered user, an email has been sent to {$request->input('email')} with a password reset link.",
         ]);
     }
 
