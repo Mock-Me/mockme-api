@@ -20,7 +20,7 @@ class ResetPasswordTest extends TestCase
      */
     public function testPasswordResetValidatesFields()
     {
-        $response = $this->postJson('/api/reset-password');
+        $response = $this->postJson('/reset-password');
 
         $response->assertStatus(422);
 
@@ -36,7 +36,7 @@ class ResetPasswordTest extends TestCase
      */
     public function testPasswordResetValidatesToken()
     {
-        $response = $this->postJson('/api/reset-password', [
+        $response = $this->postJson('/reset-password', [
             'token' => 'fake-token',
             'email' => 'chris@cmsoft.co.za',
             'password' => 'secret',
@@ -55,7 +55,7 @@ class ResetPasswordTest extends TestCase
     public function testPasswordResetValidatesTokenAgainstUser()
     {
         $user = factory(User::class)->create();
-        $response = $this->postJson('/api/reset-password', [
+        $response = $this->postJson('/reset-password', [
             'token' => 'fake-token',
             'email' => $user->email,
             'password' => 'secret',
@@ -75,7 +75,7 @@ class ResetPasswordTest extends TestCase
     {
         $user = factory(User::class)->create();
         $token = Password::broker()->createToken($user);
-        $response = $this->postJson('/api/reset-password', [
+        $response = $this->postJson('/reset-password', [
             'token' => $token,
             'email' => $user->email,
             'password' => 'secretreset',

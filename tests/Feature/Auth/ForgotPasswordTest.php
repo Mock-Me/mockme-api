@@ -20,7 +20,7 @@ class ForgotPasswordTest extends TestCase
      */
     public function testResetPasswordRouteValidatesEmailRequired()
     {
-        $response = $this->postJson('/api/forgot-password');
+        $response = $this->postJson('/forgot-password');
 
         $response->assertStatus(422);
 
@@ -38,7 +38,7 @@ class ForgotPasswordTest extends TestCase
 
         $email = 'none-existing@example.com';
 
-        $response = $this->postJson('/api/forgot-password', [
+        $response = $this->postJson('/forgot-password', [
             'email' => $email,
         ]);
 
@@ -58,7 +58,7 @@ class ForgotPasswordTest extends TestCase
 
         $user = factory(User::class)->create();
 
-        $response = $this->postJson('/api/forgot-password', [
+        $response = $this->postJson('/forgot-password', [
             'email' => $user->email,
         ]);
 
