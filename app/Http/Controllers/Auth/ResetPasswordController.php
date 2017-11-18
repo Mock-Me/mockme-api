@@ -3,14 +3,17 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ResetPasswordController extends Controller
 {
@@ -33,6 +36,8 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+
+    protected $users;
 
     /**
      * Create a new controller instance.
@@ -91,9 +96,7 @@ class ResetPasswordController extends Controller
 
         Auth::guard()->setUser($user);
 
-        return response()->json([
-            'token' => $user->api_token,
-        ]);
+        return response('');
     }
 
     /**
@@ -146,8 +149,16 @@ class ResetPasswordController extends Controller
         return $user;
     }
 
-    public function showResetForm(Request $request, $token = null)
+    public function showResetForm(Request $request, $base64Email = null, $token = null)
     {
-        return view('auth.reset', compact('token'));
+        $email = base64_decode($base64Email);
+        $user = User::where('email', $email)->first();
+        if(!$user) {
+            throw new NotFoundHttpException();
+        }
+        if(!$this->broker()->tokenExists($user, $token)) {
+            return view('auth.token-invalid', ['message' => 'Your reset link has expired.']);
+        }
+        return view('auth.reset', compact('token', 'email'));
     }
 }

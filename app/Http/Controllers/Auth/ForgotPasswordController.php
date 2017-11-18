@@ -55,7 +55,6 @@ class ForgotPasswordController extends Controller
             $this->sendSignupMail($request->input('email'));
         } else {
             $token = $this->broker()->createToken($user);
-            error_log($token);
             $this->sendPasswordResetMail($user, $token);
         }
 

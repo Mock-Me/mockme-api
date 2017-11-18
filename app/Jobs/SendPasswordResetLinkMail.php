@@ -35,6 +35,6 @@ class SendPasswordResetLinkMail implements ShouldQueue
      */
     public function handle()
     {
-        //
+        error_log($this->token);
     }
 }
