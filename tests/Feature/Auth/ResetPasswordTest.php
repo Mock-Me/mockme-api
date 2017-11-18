@@ -84,9 +84,6 @@ class ResetPasswordTest extends TestCase
         ]);
         $user->refresh();
         $response->assertStatus(200);
-        $response->assertExactJson([
-            'token' => $user->api_token,
-        ]);
         $user = User::find($user->id);
         $this->assertTrue(Hash::check('secretreset', $user->password));
     }
