@@ -20,4 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['namespace' => 'Auth'], function() {
     Route::post('/login', 'LoginController@login');
     Route::post('/register', 'RegisterController@register');
+    Route::post('/forgot-password', 'ForgotPasswordController@sendResetLinkEmail');
+    Route::post('/reset-password', 'ResetPasswordController@reset');
+    Route::get('/reset/{base64Email}/{token}', 'ResetPasswordController@showResetForm');
 });

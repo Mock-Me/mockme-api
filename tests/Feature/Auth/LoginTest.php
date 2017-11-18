@@ -18,7 +18,7 @@ class LoginTest extends TestCase
      */
     public function testLoginGivesValidationErrorsIfFieldAreNotPassed()
     {
-        $response = $this->postJson('/api/login');
+        $response = $this->postJson('/login');
 
         $response->assertStatus(422);
 
@@ -32,7 +32,7 @@ class LoginTest extends TestCase
      */
     public function testLoginFailsWhenNoUserIsFound()
     {
-        $response = $this->postJson('/api/login', [
+        $response = $this->postJson('/login', [
             'email' => 'chris@cmsoft.co.za',
             'password' => 'foobar',
         ]);
@@ -55,7 +55,7 @@ class LoginTest extends TestCase
             'password' => bcrypt('correctPassword'),
         ]);
 
-        $response = $this->postJson('/api/login', [
+        $response = $this->postJson('/login', [
             'email' => $user->email,
             'password' => 'wrongPassword',
         ]);
@@ -78,7 +78,7 @@ class LoginTest extends TestCase
             'password' => bcrypt('correctPassword'),
         ]);
 
-        $response = $this->postJson('/api/login', [
+        $response = $this->postJson('/login', [
             'email' => $user->email,
             'password' => 'correctPassword',
         ]);

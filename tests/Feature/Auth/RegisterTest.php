@@ -16,7 +16,7 @@ class RegisterTest extends TestCase
      */
     public function testValidationErrorsIfNothingPassed()
     {
-        $response = $this->postJson('/api/register');
+        $response = $this->postJson('/register');
 
         $response->assertStatus(422);
 
@@ -32,7 +32,7 @@ class RegisterTest extends TestCase
      */
     public function testRegisterReturnsApiTokenOnSuccessFulRegistration()
     {
-        $response = $this->postJson('/api/register', [
+        $response = $this->postJson('/register', [
             'name' => 'Chris',
             'email' => 'chris@cmsoft.co.za',
             'password' => 'foobar',
